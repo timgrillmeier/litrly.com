@@ -29,5 +29,23 @@ function changeColor() {
   inputLightness.style = inputLightBGStr
 
   document.body.style.background = hsl
+
+  if (inputLightnessValue < 40) {
+    document.body.classList.add('theme-dark')
+  } else {
+    document.body.classList.remove('theme-dark')
+  }
 }
 
+function applyPreset(h, s, l) {
+  inputHueValue = h
+  inputHue.value = h
+
+  inputSaturationValue = s
+  inputSaturation.value = s
+
+  inputLightnessValue = l
+  inputLightness.value = l
+
+  changeColor()
+}

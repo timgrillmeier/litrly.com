@@ -1,8 +1,12 @@
 body {
 	margin: 0;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	transition: background 400ms;
+	transition: background 400ms, color 400ms;
 	background: rgb(248, 188, 98);
+}
+
+body.theme-dark {
+	color: white;
 }
 
 header {
@@ -38,6 +42,12 @@ header p a {
 	color: black;
 	padding-bottom: 2px;
 	border-bottom: 2px solid black;
+	transition: color 400ms, border 400ms;
+}
+
+body.theme-dark header p a {
+	color: white;
+	border-bottom: 2px solid white;
 }
 
 .container-content {
@@ -76,6 +86,11 @@ header p a {
 	border-radius: 10px;
 	cursor: pointer;
 	transition: background 750ms;
+	transition: border 400ms;
+}
+
+body.theme-dark .slider input {
+	border: 2px solid white;
 }
 
 .slider input#input-hue {
@@ -119,10 +134,13 @@ header p a {
     width: 5px;
     height: 36px;
     top: -8px;
-/*    border-bottom: 2px solid black;*/
     background: #000000;
     border-radius: 3px;
-/*    box-sizing: border-box;*/
+    transition: background 400ms;
+}
+
+body.theme-dark .slider input::-moz-range-thumb {
+	background: white;
 }
 
 .slider input::-moz-range-thumb:active {
@@ -142,10 +160,13 @@ header p a {
     width: 5px;
     height: 36px;
     top: -8px;
-/*    border-bottom: 2px solid black;*/
     background: #000000;
     border-radius: 3px;
-/*    box-sizing: border-box;*/
+    transition: background 400ms;
+}
+
+body.theme-dark .slider input::-webkit-slider-thumb {
+	background: white;
 }
 
 .slider input::-webkit-slider-thumb:active {
@@ -154,6 +175,37 @@ header p a {
     cursor: grabbing;
 }
 
+.preset-title {
+	font-size: 1em;
+	letter-spacing: 0.1em;
+	font-weight: normal;
+	line-height: 1.4;
+	text-align: center;
+}
+
+.container-preset {
+	width: 100%;
+	max-width: 500px;
+	margin: 0 auto;
+	justify-content: center;
+	text-align: center;
+}
+
+.container-preset .preset {
+	border: 2px solid black;
+	display: inline-block;
+	border-radius: 25px;
+	width: 50px;
+	height: 50px;
+	box-sizing: border-box;
+	cursor: pointer;
+	margin: 5px;
+	transition: border 400ms;
+}
+
+body.theme-dark .container-preset .preset {
+	border: 2px solid white;
+}
 
 
 
