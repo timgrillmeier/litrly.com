@@ -12,7 +12,7 @@
   <meta property="og:title" content="litrly">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.sitepoint.com/a-basic-html5-template/">
-  <meta property="og:description" content="A web-based dynamic lighting panel. Get really lit with litrly.">
+  <meta property="og:description" content="Web-based dynamic lighting panel. Now you can get lit. Really.">
   <meta property="og:image" content="image.png">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
@@ -33,12 +33,37 @@
   <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
   <meta name="theme-color" content="#00000">
 
-  <link rel="stylesheet" href="styles.css?v=1.0">
+  <link rel="stylesheet" href="style.css?v=1.0">
 
 </head>
 
 <body>
-
+  <header>
+    <h1>litrly.com</h1>
+    <p>Web-based dynamic lighting panel.</p>
+    <p>Like litrly? <a href="https://www.buymeacoffee.com/timgrillmeier" target="_blank" alt="Link to buy me a coffee">Buy me a coffee</a>.
+  </header>
+  <div class="container-content">
+    <div class="container-settings">
+      <div class="sliders">
+        <div class="slider">
+          <input id="input-hue" name="input-hue" type="range" min="0" max="360" value="20" title="Hue range slider.">
+        </div>
+        <div class="slider">
+           <input id="input-saturation" name="input-saturation" type="range" min="0" max="100" value="92" title="Saturation range slider.">
+        </div>
+        <div class="slider">
+           <input id="input-lightness" name="input-lightness" type="range" min="0" max="100" value="68" title="Lightness range slider.">
+        </div>
+      </div>
+      <div class="presets">
+        <span class="preset add" id="preset-add"></span>
+        <span class="preset-list">
+          <span class="preset set" id="preset-set"></span>
+        </span>
+      </div>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
