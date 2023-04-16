@@ -266,12 +266,18 @@ body.theme-dark .slider input::-webkit-slider-thumb {
 	box-sizing: border-box;
 	cursor: pointer;
 	margin: 5px;
-	transition: border 400ms;
+	transition: border 400ms, transform 200ms;
+}
+
+.container-preset .preset:hover {
+	transform: scale(1.1);
 }
 
 body.theme-dark .container-preset .preset {
 	border: 2px solid white;
 }
+
+
 
 
 
