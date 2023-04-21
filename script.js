@@ -5,6 +5,15 @@ let inputSaturationValue = '92'
 let inputLightness = document.getElementById('input-lightness')
 let inputLightnessValue = '68'
 
+let listPresets = document.getElementById('preset-list')
+let presets = [
+    {h:344, s:97, l:39},
+    {h:255, s:95, l:56},
+    {h:181, s:95, l:94},
+    {h:41, s:92, l:88},
+    {h:29, s:92, l:100},
+  ]
+
 inputHue.addEventListener('input', function(e) {
   inputHueValue = this.value
   changeColor()
@@ -19,6 +28,34 @@ inputLightness.addEventListener('input', function(e) {
   inputLightnessValue = this.value
   changeColor()
 });
+
+document.addEventListener('load', loadPresets())
+
+function cookiesConsent(a) {
+  let cookiesConsentMessage = document.getElementById('cookie-consent')
+  console.log(a)
+  
+  if (a == 'approved') {
+    setCookie('cookies_allowed', 'true', 365)
+    // take current presets array
+    let savePresetButton = document.getElementById('save-preset-button')
+    savePresetButton.classList.add('new-animation')
+
+    presets = [{h:parseInt(inputHueValue),s:parseInt(inputSaturationValue),l:parseInt(inputLightnessValue)}].concat(presets)
+
+    cookiePresetsJSON = JSON.stringify(presets)
+    setCookie('presets', cookiePresetsJSON, 365)
+
+    setTimeout(() => {
+      savePresetButton.classList.remove('new-animation')
+      displayPresets()
+    },600)
+  } else if (a == 'disallowed') {
+
+  }
+
+  cookiesConsentMessage.style.opacity = 0
+}
 
 function changeColor() {
   let hsl = "hsl("+ inputHueValue + ", " + inputSaturationValue + "%, " + inputLightnessValue + "%)"
@@ -49,3 +86,142 @@ function applyPreset(h, s, l) {
 
   changeColor()
 }
+
+function loadPresets() {
+  // check cookies
+  let cookiePresetsJSON = getCookie('presets')
+
+  // update presets array
+  if (cookiePresetsJSON != '') {
+    console.log(cookiePresetsJSON)
+    presets = JSON.parse(cookiePresetsJSON)
+  }
+
+  // display presets
+  displayPresets()
+}
+
+function savePreset() {
+  let cookiesAllowed = getCookie('cookies_allowed')
+
+  console.log(cookiesAllowed)
+  if (cookiesAllowed == '') {
+    let cookiesConsentMessage = document.getElementById('cookie-consent')
+    cookiesConsentMessage.style.opacity = 1
+    return
+  }
+
+
+  // take current presets array
+  let savePresetButton = document.getElementById('save-preset-button')
+  savePresetButton.classList.add('new-animation')
+
+  presets = [{h:parseInt(inputHueValue),s:parseInt(inputSaturationValue),l:parseInt(inputLightnessValue)}].concat(presets)
+
+  cookiePresetsJSON = JSON.stringify(presets)
+  setCookie('presets', cookiePresetsJSON, 365)
+
+  setTimeout(() => {
+    savePresetButton.classList.remove('new-animation')
+    displayPresets()
+  },600)
+}
+
+function removePreset(h, s, l, i) {
+  let preset = document.getElementById('container-preset-' + i)
+  preset.classList.add('delete-animation')
+
+  console.log('i:',i)
+  console.log('before:',presets)
+
+
+  presets.splice(i, 1)
+
+  cookiePresetsJSON = JSON.stringify(presets)
+  setCookie('presets', cookiePresetsJSON, 365)
+
+  console.log('after:',presets)
+
+  setTimeout(() => {
+    // preset.classList.remove('delete-animation')
+    displayPresets()
+  },600)
+}
+
+function displayPresets() {
+  // let docFrag = document.createDocumentFragment();
+
+  // let newTag = document.createElement('link')
+  // newTag.setAttribute('rel', 'stylesheet')
+
+  // docFrag.appendChild(newTag)
+
+  let shard = document.getElementById('preset-list')
+  shard.innerHTML = ''
+  
+  for (let i = 0; i < presets.length; i++) {
+    let newTag = document.createElement('span')
+    newTag.setAttribute('class', 'container-preset')
+    newTag.setAttribute('id', 'container-preset-' + i)
+
+    let newChildTagA = document.createElement('span')
+    newChildTagA.setAttribute('class', 'preset')
+    newChildTagA.setAttribute('style', 'background: hsl('+ presets[i].h +', '+ presets[i].s +'%, '+ presets[i].l +'%)')
+    newChildTagA.setAttribute('onclick', 'applyPreset('+ presets[i].h +', '+ presets[i].s +', '+ presets[i].l +')')
+    newTag.appendChild(newChildTagA)
+
+    let newChildTagB = document.createElement('span')
+    newChildTagB.setAttribute('class', 'delete')
+    newChildTagB.setAttribute('onclick', 'removePreset('+ presets[i].h +', '+ presets[i].s +', '+ presets[i].l +', '+ i +')')
+    // docFrag.appendChild(newTag)
+    let cookiesAllowed = getCookie('cookies_allowed')
+    if (cookiesAllowed != '') {
+      newTag.appendChild(newChildTagB)
+    }
+
+    shard.appendChild(newTag)
+  }
+
+  
+  // shard.attachShadow({ mode: 'open' })
+  // shard.appendChild(docFrag)
+}
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  let cookie = cname + "=" + cvalue + ";" + expires + ";path=/"; 
+  document.cookie = cookie
+  console.log('cookie',cookie)
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

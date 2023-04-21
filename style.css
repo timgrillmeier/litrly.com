@@ -15,6 +15,17 @@ body.theme-dark {
 	color: white;
 }
 
+#cookie-consent {
+	opacity: 0;
+	font-size: 1em;
+	letter-spacing: 0.1em;
+	font-weight: normal;
+	line-height: 1.4;
+	max-width: 500px;
+	margin: 20px auto 0;
+	transition: opacity 200ms;
+}
+
 header {
 	position: fixed;
 	left: 0;
@@ -48,17 +59,16 @@ header p {
 	line-height: 1.4;
 }
 
-header p a {
+.link {
 	text-decoration: none;
 	color: black;
 	padding-bottom: 2px;
-/*	border-bottom: 2px solid black;*/
 	transition: color 400ms, border 400ms;
 	position: relative;
 }
 
-header p a:before,
-header p a:after {
+.link:before,
+.link:after {
 	position: absolute;
 	width: 100%;
 	height: 2px;
@@ -69,27 +79,27 @@ header p a:after {
 	transition: background 400ms, width 200ms ease-out;
 }
 
-header p a:before {
+.link:before {
 	right: auto;
 	left: 0;
 	width: 0;
 	transition-delay: 100ms;
 }
 
-header p a:hover:before {
+.link:hover:before {
 	width: 100%;
 }
 
-header p a:hover:after {
+.link:hover:after {
 	width: 0;
 }
 
-body.theme-dark header p a {
+body.theme-dark .link {
 	color: white;
 }
 
-body.theme-dark header p a:before,
-body.theme-dark header p a:after {
+body.theme-dark .link:before,
+body.theme-dark .link:after {
 	background: white;
 }
 
@@ -249,7 +259,7 @@ body.theme-dark .slider input::-webkit-slider-thumb {
 	text-align: center;
 }
 
-.container-preset {
+.container-presets {
 	width: 100%;
 	max-width: 500px;
 	margin: 0 auto;
@@ -257,7 +267,7 @@ body.theme-dark .slider input::-webkit-slider-thumb {
 	text-align: center;
 }
 
-.container-preset .preset {
+.container-presets .preset {
 	border: 2px solid black;
 	display: inline-block;
 	border-radius: 25px;
@@ -267,13 +277,155 @@ body.theme-dark .slider input::-webkit-slider-thumb {
 	cursor: pointer;
 	margin: 5px;
 	transition: border 400ms, transform 200ms;
+	position: relative;
 }
 
-.container-preset .preset:hover {
+.container-presets .container-preset {
+	position: relative;
+	display: inline-block;
+	transition: opacity 300ms, margin 600ms;
+}
+
+.container-presets .container-preset .delete {
+	width: 14px;
+	height: 14px;
+	border-radius: 10px;
+	background: red;
+	border: 2px solid black;
+	transition: background 200ms;
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	display: inline-block;
+	opacity: 0;
+	transition: transform 200ms, background 200ms, opacity 200ms;
+	cursor: pointer;
+	pointer-events: none;
+}
+
+.container-presets .container-preset .delete:before,
+.container-presets .container-preset .delete:after {
+	width: 2px;
+	height: 8px;
+	background: black;
+	position: absolute;
+	top: 3px;
+	left: 6px;
+	content: '';
+}
+
+.container-presets .container-preset:hover .delete {
+	pointer-events: auto;
+}
+
+.container-presets .container-preset .delete:hover {
+	transform: scale(1.2);
+}
+
+.container-presets .container-preset .delete:before {
+	transform: rotate(45deg);
+}
+
+.container-presets .container-preset .delete:after {
+	transform: rotate(-45deg);
+}
+
+.container-presets .container-preset.delete-animation {
+	opacity: 0;
+	margin-left: -60px;
+}
+
+body.theme-dark .container-presets .container-preset .delete {
+	border: 2px solid white;
+}
+
+.container-presets .container-preset:hover .delete {
+	opacity: 1;
+}
+
+.container-presets .preset.add {
+	position: relative;
+	margin-right: 0;
+	z-index: 1;
+}
+
+.container-presets .preset.add .sprite {
+	z-index: 2;
+	position: absolute;
+	border: 2px solid black;
+	display: inline-block;
+	border-radius: 25px;
+	width: 50px;
+	height: 50px;
+	box-sizing: border-box;
+	top: -2px;
+	left: -2px;
+}
+
+.container-presets .preset.add.new-animation {
+	transition: margin 600ms;
+	margin-right: 59px;
+}
+
+.container-presets .preset.add.new-animation .sprite {
+	transition: margin 600ms;
+	margin-left: 59px;
+}
+
+.container-presets .preset.add:hover {
+	transform: scale(1);
+}
+
+.container-presets .preset.add:hover:before,
+.container-presets .preset.add:hover:after {
+	transform: rotate(90deg);
+}
+
+.container-presets .preset.add:before {
+	position: absolute;
+	width: 2px;
+	height: 24px;
+	background: black;
+	content: '';
+	top: 11px;
+	left: 22px;
+	border-radius: 2px;
+	transition: 400ms;
+	transition: background 400ms;
+	z-index: 2;
+}
+
+.container-presets .preset.add:after {
+	position: absolute;
+	width: 24px;
+	height: 2px;
+	background: black;
+	content: '';
+	top: 22px;
+	left: 11px;
+	border-radius: 2px;
+	transition: 400ms;
+	transition: background 400ms;
+	z-index: 2;
+}
+
+body.theme-dark .container-presets .preset.add:before {
+	background: white;
+}
+
+body.theme-dark .container-presets .preset.add:after {
+	background: white;
+}
+
+.container-presets .preset:hover {
 	transform: scale(1.1);
 }
 
-body.theme-dark .container-preset .preset {
+body.theme-dark .container-presets .preset {
+	border: 2px solid white;
+}
+
+body.theme-dark .container-presets .preset .sprite {
 	border: 2px solid white;
 }
 

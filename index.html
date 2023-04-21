@@ -38,7 +38,7 @@
   <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
   <meta name="theme-color" content="#00000">
 
-  <link rel="stylesheet" href="style.css?v=1.4">
+  <link rel="stylesheet" href="style.css?v=1.5">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RET4WCKQX"></script>
@@ -55,7 +55,7 @@
   <header>
     <h1>litrly.</h1>
     <p>Web-based dynamic lighting panel for optimal lighting during video recording or meetings. Maximize this window on second monitor or behind a smaller call window and adjust settings to your liking.</p>
-    <p>Like litrly? Share with friends or<br><a href="https://www.buymeacoffee.com/timgrillmeier" target="_blank" alt="Link to buy me a coffee">shout me a coffee</a>.
+    <p>Like litrly? Share with friends or<br><a href="https://www.buymeacoffee.com/timgrillmeier" class="link" target="_blank" alt="Link to buy me a coffee">shout me a coffee</a>.
   </header>
   <div class="container-content">
     <div class="container-settings">
@@ -71,22 +71,24 @@
         </div>
       </div>
       <p class="preset-title">Presets:</p>
-      <div class="container-preset">
-        
-        <div class="preset" style="background: hsl(344, 97%, 39%);" onclick="applyPreset(344, 97, 39)">
-        </div>
-        <div class="preset" style="background: hsl(255, 95%, 56%);" onclick="applyPreset(255, 95, 56)">
-        </div>
-        <div class="preset" style="background: hsl(181, 95%, 94%);" onclick="applyPreset(181, 95, 94)">
-        </div>
-        <div class="preset" style="background: hsl(41, 92%, 88%);" onclick="applyPreset(41, 92, 88)">
-        </div>
-        <div class="preset" style="background: hsl(29, 92%, 100%);" onclick="applyPreset(29, 92, 100)">
-        </div>
+      <div class="container-presets">
+        <span class="preset add" id="save-preset-button" style="" onclick="savePreset()">
+          <span class="sprite" id="sprite"></span>
+        </span>
+        <span id="preset-list">
+
+        </span>
       </div>
-      <p class="preset-title">Save function for custom presets in development.</p>
+      <!-- <p class="preset-title">Save function for custom presets in development.</p> -->
+      <p id="cookie-consent">
+        We store browser cookies on your device to save your presets between sessions. Do you consent to this website using cookies to store presets?<br>
+        <br>
+        <a href="javascript: cookiesConsent('approved');" class="link">Yes, use cookies.</a><br>
+        <br>
+        <a href="javascript: cookiesConsent('disallowed');" class="link">No, disallow cookies.</a>
+      </p>
     </div>
   </div>
-  <script src="script.js?v=1.4"></script>
+  <script src="script.js?v=1.5"></script>
 </body>
 </html>
