@@ -67,6 +67,12 @@ function changeColor() {
 
   document.body.style.background = hsl
 
+  // setCookie('cookies_allowed', 'true', 365)
+  let cookiesAllowed = getCookie('cookies_allowed')
+  if (cookiesAllowed != '') {
+    setCookie('backgroundstyle',JSON.stringify({h:inputHueValue, s:inputSaturationValue, l:inputLightnessValue}),365)
+  }
+
   if (inputLightnessValue < 40) {
     document.body.classList.add('theme-dark')
   } else {
@@ -95,6 +101,22 @@ function loadPresets() {
   if (cookiePresetsJSON != '') {
     console.log(cookiePresetsJSON)
     presets = JSON.parse(cookiePresetsJSON)
+    let bgstr = getCookie('backgroundstyle')
+    if (bgstr != '') {
+      let backgroundStyle = JSON.parse(bgstr)
+      let hsl = "hsl("+ backgroundStyle.h + ", " + backgroundStyle.s + "%, " + backgroundStyle.l + "%)"
+
+      inputHue.value = backgroundStyle.h
+      inputHueValue = backgroundStyle.h
+      inputSaturation.value = backgroundStyle.s
+      inputSaturationValue = backgroundStyle.s
+      inputLightness.value = backgroundStyle.l
+      inputLightnessValue = backgroundStyle.l
+
+      changeColor()
+
+      document.body.style.background = hsl
+    }
   }
 
   // display presets
