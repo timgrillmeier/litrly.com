@@ -4,6 +4,7 @@ let inputSaturation = document.getElementById('input-saturation')
 let inputSaturationValue = '92'
 let inputLightness = document.getElementById('input-lightness')
 let inputLightnessValue = '68'
+let partyModeActive = false;
 
 let listPresets = document.getElementById('preset-list')
 let presets = [
@@ -94,6 +95,9 @@ function applyPreset(h, s, l) {
 }
 
 function loadPresets() {
+  // Start party mode loop
+  partyModeRun()
+
   // check cookies
   let cookiePresetsJSON = getCookie('presets')
 
@@ -232,6 +236,23 @@ function getCookie(cname) {
     }
   }
   return "";
+}
+
+function togglePartyMode() {
+  partyModeActive = !partyModeActive
+}
+
+function partyModeRun() {
+  setInterval(function(){
+    if (partyModeActive) {
+      inputHueValue++
+      if (inputHueValue > 360) {
+        inputHueValue = 0
+      }
+      inputHue.value = inputHueValue
+      changeColor()
+    }
+  },15)
 }
 
 

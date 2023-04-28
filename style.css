@@ -107,7 +107,7 @@ body.theme-dark .link:after {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	min-height: 100vh;
+	min-height: calc(100vh - 50px);
 	width: 100vw;
 	padding: 250px 20px;
 	box-sizing: border-box;
@@ -118,6 +118,10 @@ body.theme-dark .link:after {
 		padding: 20px;
 		min-height: auto;
 	}
+}
+
+footer {
+	text-align: center;
 }
 
 .container-settings {
