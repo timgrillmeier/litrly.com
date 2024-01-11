@@ -242,7 +242,7 @@ function togglePartyMode() {
   partyModeActive = !partyModeActive
 
   if (partyModeActive) {
-    document.body.style = "transition: background 15ms, color 400ms;"
+    document.body.style = "transition: background 0ms, color 400ms;"
   } else {
     document.body.style = "transition: background 400ms, color 400ms;"
   }
@@ -258,7 +258,7 @@ function partyModeRun() {
       inputHue.value = inputHueValue
       changeColor()
     }
-  },15)
+  },10)
 }
 
 
