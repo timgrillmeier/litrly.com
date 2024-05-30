@@ -98,12 +98,29 @@ function loadPresets() {
   // Start party mode loop
   partyModeRun()
 
+  // Sync party mode if active
+  let pmTimestamp = parseInt(getCookie('pmTimestamp'));
+  if (pmTimestamp > 0) {
+    togglePartyMode()
+    let timestamp = parseInt(Date.now());
+    let timestampDiff = timestamp - pmTimestamp;
+    inputHue.value = ((timestampDiff % 3600) / 10)
+  }
+
+  
+  // console.log(getCookie('pmTimestamp'))
+  // console.log(typeof(getCookie('pmTimestamp')))
+  // let pmState = getCookie('pmState')
+  // if (typeof pmState != 'undefined' && pmState != '') {
+  //   console.log(pmState)
+  // }
+  // // getCookie('pmTimestamp')
+
   // check cookies
   let cookiePresetsJSON = getCookie('presets')
 
   // update presets array
   if (cookiePresetsJSON != '') {
-    console.log(cookiePresetsJSON)
     presets = JSON.parse(cookiePresetsJSON)
     let bgstr = getCookie('backgroundstyle')
     if (bgstr != '') {
@@ -219,7 +236,6 @@ function setCookie(cname, cvalue, exdays) {
   let expires = "expires="+ d.toUTCString();
   let cookie = cname + "=" + cvalue + ";" + expires + ";path=/"; 
   document.cookie = cookie
-  console.log('cookie',cookie)
 }
 
 function getCookie(cname) {
@@ -241,10 +257,15 @@ function getCookie(cname) {
 function togglePartyMode() {
   partyModeActive = !partyModeActive
 
+  let timestamp = Date.now();
+
   if (partyModeActive) {
     document.body.style = "transition: background 0ms, color 400ms;"
+    setCookie('pmTimestamp',JSON.stringify(timestamp),365)
+    setCookie('pmHue',JSON.stringify(inputHueValue),365)
   } else {
     document.body.style = "transition: background 400ms, color 400ms;"
+    setCookie('pmTimestamp',JSON.stringify(0),365)
   }
 }
 
